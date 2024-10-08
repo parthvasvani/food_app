@@ -5,14 +5,18 @@ import 'food_item_trail.dart';
 
 class FoodItem extends StatelessWidget {
   final Food food;
-  const FoodItem({super.key, required this.food});
+  final void Function(Food food) onSelectFood;
 
-  String get complexityText{
-    return food.complexity.name[0].toUpperCase() + food.complexity.name.substring(1);
+  const FoodItem({super.key, required this.food, required this.onSelectFood});
+
+  String get complexityText {
+    return food.complexity.name[0].toUpperCase() +
+        food.complexity.name.substring(1);
   }
 
-  String get affordabilityText{
-    return food.complexity.name[0].toUpperCase() + food.complexity.name.substring(1);
+  String get affordabilityText {
+    return food.complexity.name[0].toUpperCase() +
+        food.complexity.name.substring(1);
   }
 
   @override
@@ -21,12 +25,17 @@ class FoodItem extends StatelessWidget {
 
     Widget myContent = Stack(
       children: [
-        FadeInImage(
-          placeholder: MemoryImage(kTransparentImage),
-          image: NetworkImage(food.imageUrl),
-          fit: BoxFit.cover,
-          height: 200,
-          width: double.infinity,
+        InkWell(
+          onTap: () {
+            onSelectFood(food);
+          },
+          child: FadeInImage(
+            placeholder: MemoryImage(kTransparentImage),
+            image: NetworkImage(food.imageUrl),
+            fit: BoxFit.cover,
+            height: 200,
+            width: double.infinity,
+          ),
         ),
         Positioned(
           left: 0,
@@ -45,7 +54,8 @@ class FoodItem extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.onSecondaryContainer),
+                      color:
+                          Theme.of(context).colorScheme.onSecondaryContainer),
                 ),
                 const SizedBox(
                   height: 12,
@@ -53,7 +63,10 @@ class FoodItem extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    FoodItemTrail(icon: Icons.schedule, label: "${food.duration} min",),
+                    FoodItemTrail(
+                      icon: Icons.schedule,
+                      label: "${food.duration} min",
+                    ),
                     const SizedBox(
                       width: 12,
                     ),
@@ -61,7 +74,8 @@ class FoodItem extends StatelessWidget {
                     const SizedBox(
                       width: 12,
                     ),
-                    FoodItemTrail(icon: Icons.attach_money, label: affordabilityText)
+                    FoodItemTrail(
+                        icon: Icons.attach_money, label: affordabilityText)
                   ],
                 ),
               ],
@@ -75,57 +89,63 @@ class FoodItem extends StatelessWidget {
       myContent = Row(
         children: [
           FadeInImage(
-              placeholder: MemoryImage(kTransparentImage),
-              image: NetworkImage(food.imageUrl),
+            placeholder: MemoryImage(kTransparentImage),
+            image: NetworkImage(food.imageUrl),
             fit: BoxFit.cover,
             height: 200,
-            width: 300,
+            width: 200,
           ),
           Expanded(
               child: Container(
-                alignment: Alignment.topCenter,
-                padding: EdgeInsets.only(top: 20),
-                height: 200,
-                color: Theme.of(context).colorScheme.surface,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      food.title,
-                      maxLines: 2,
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.onSecondaryContainer),
-                    ),
-                    Container(
-                      color: Theme.of(context).colorScheme.surfaceDim.withOpacity(0.99),
-                      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 44),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          FoodItemTrail(icon: Icons.schedule, label: "${food.duration} min",),
-                          const SizedBox(
-                            width: 12,
-                          ),
-                          FoodItemTrail(icon: Icons.work, label: complexityText),
-                          const SizedBox(
-                            width: 12,
-                          ),
-                          FoodItemTrail(icon: Icons.attach_money, label: affordabilityText)
-                        ],
-                      ),
-                    )
-                  ],
+            alignment: Alignment.topCenter,
+            padding: const EdgeInsets.only(top: 20),
+            height: 200,
+            color: Theme.of(context).colorScheme.surface,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  food.title,
+                  maxLines: 2,
+                  softWrap: true,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color:
+                          Theme.of(context).colorScheme.onSecondaryContainer),
                 ),
-              )
-          )
+                Container(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .surfaceDim
+                      .withOpacity(0.99),
+                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 44),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      FoodItemTrail(
+                        icon: Icons.schedule,
+                        label: "${food.duration} min",
+                      ),
+                      const SizedBox(
+                        width: 12,
+                      ),
+                      FoodItemTrail(icon: Icons.work, label: complexityText),
+                      const SizedBox(
+                        width: 12,
+                      ),
+                      FoodItemTrail(
+                          icon: Icons.attach_money, label: affordabilityText)
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ))
         ],
       );
     }
-
 
     return Card(
       shape: RoundedRectangleBorder(

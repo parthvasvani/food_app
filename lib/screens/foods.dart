@@ -1,11 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/main.dart';
 import 'package:food_app/widgets/food_item.dart';
 import '../models/food.dart';
+import 'food_details.dart';
 
 class FoodsScreen extends StatelessWidget {
-  final String title;
+  final String? title;
   final List<Food> foods;
-  const FoodsScreen({super.key, required this.title, required this.foods});
+  final void Function(Food food) onToggleFavorite;
+
+  const FoodsScreen(
+      {super.key,
+      this.title,
+      required this.foods,
+      required this.onToggleFavorite});
+
+  void selectedFood(BuildContext content, Food food) {
+    Navigator.of(content).push(MaterialPageRoute(
+      builder: (content) => FoodDetailsScreen(
+        food: food,
+        onToggleFavorite: (food) {
+          onToggleFavorite(food);
+        },
+      ),
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +39,7 @@ class FoodsScreen extends StatelessWidget {
                 .headlineLarge!
                 .copyWith(color: Theme.of(context).colorScheme.surfaceTint),
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           Text(
@@ -38,13 +57,22 @@ class FoodsScreen extends StatelessWidget {
       mainContent = ListView.builder(
           itemCount: foods.length,
           itemBuilder: (context, index) {
-            return FoodItem(food: foods[index]);
+            return FoodItem(
+              food: foods[index],
+              onSelectFood: (food) {
+                selectedFood(context, food);
+              },
+            );
           });
+    }
+
+    if (title == null){
+      return mainContent;
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(title!),
       ),
       body: mainContent,
     );
