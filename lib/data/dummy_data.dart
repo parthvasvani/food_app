@@ -7,6 +7,7 @@ const availableCategories = [
     id: 'c1',
     title: 'Italian',
     color: Colors.purple,
+    imageCategory: "https://i.pinimg.com/736x/7f/44/9c/7f449c9edf226b0f914c2694122b8a72.jpg"
   ),
   Category(
     id: 'c2',
@@ -22,6 +23,7 @@ const availableCategories = [
     id: 'c4',
     title: 'German',
     color: Colors.amber,
+    imageCategory: "https://markcorporation.in/wp-content/uploads/2015/07/Brandenburg-Gate-Germany-1024x725.jpg"
   ),
   Category(
     id: 'c5',
@@ -37,16 +39,19 @@ const availableCategories = [
     id: 'c7',
     title: 'Breakfast',
     color: Colors.lightBlue,
+    imageCategory: "https://m.media-amazon.com/images/I/718-Yi8ohqL._AC_UF350,350_QL80_.jpg"
   ),
   Category(
     id: 'c8',
     title: 'Asian',
     color: Colors.lightGreen,
+    imageCategory: "https://i0.wp.com/www.tusktravel.com/blog/wp-content/uploads/2022/04/India-Gate-Delhi.jpg?fit=1022%2C680&ssl=1"
   ),
   Category(
     id: 'c9',
     title: 'French',
     color: Colors.pink,
+    imageCategory: "https://3.bp.blogspot.com/-shxYaE6g4UE/Ti2puh29xRI/AAAAAAAAAB8/hPsf4iTK-Uc/s1600/EiffelTower.jpg"
   ),
   Category(
     id: 'c10',

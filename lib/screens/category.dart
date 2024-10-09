@@ -68,7 +68,6 @@ class CategoryScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      body: myGridView
-    );
+      body: myGridView);
   }
 }

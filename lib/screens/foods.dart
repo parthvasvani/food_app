@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_app/main.dart';
 import 'package:food_app/widgets/food_item.dart';
 import '../models/food.dart';
 import 'food_details.dart';
@@ -46,7 +45,7 @@ class FoodsScreen extends StatelessWidget {
             "Try selecting a different category",
             style: Theme.of(context)
                 .textTheme
-                .headlineLarge!
+                .bodyLarge!
                 .copyWith(color: Theme.of(context).colorScheme.surfaceTint),
           )
         ],

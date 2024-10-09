@@ -101,7 +101,7 @@ class FoodItem extends StatelessWidget {
             padding: const EdgeInsets.only(top: 20),
             height: 200,
             color: Theme.of(context).colorScheme.surface,
-            child: Column(
+              child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
