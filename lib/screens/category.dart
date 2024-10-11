@@ -7,21 +7,26 @@ import 'foods.dart';
 
 class CategoryScreen extends StatelessWidget {
   final void Function(Food food) onToggleFavorite;
-
-  const CategoryScreen({super.key, required this.onToggleFavorite});
+  final List<Food> availableFood;
+  const CategoryScreen({
+    super.key,
+    required this.onToggleFavorite,
+    required this.availableFood,
+  });
 
   void _selectCategory(BuildContext context, Category category) {
-    final filteredFoods = dummyFoods
+    final filteredFoods = availableFood
         .where(
           (food) => food.categories.contains(category.id),
         )
         .toList();
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (content) => FoodsScreen(
-              title: category.title,
-              foods: filteredFoods,
-              onToggleFavorite: onToggleFavorite,
-            )));
+      builder: (content) => FoodsScreen(
+        title: category.title,
+        foods: filteredFoods,
+        onToggleFavorite: onToggleFavorite,
+      ),
+    ));
   }
 
   @override
@@ -34,8 +39,7 @@ class CategoryScreen extends StatelessWidget {
             crossAxisCount: 2,
             childAspectRatio: 2 / 2,
             crossAxisSpacing: 20,
-            mainAxisSpacing: 20
-        ),
+            mainAxisSpacing: 20),
         shrinkWrap: true,
         children: [
           for (final category in availableCategories)
@@ -67,7 +71,7 @@ class CategoryScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      body: myGridView);
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        body: myGridView);
   }
 }
