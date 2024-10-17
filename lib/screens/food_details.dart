@@ -22,22 +22,36 @@ class FoodDetailsScreen extends ConsumerWidget {
                     .read(favoriteFoodProvider.notifier)
                     .toggleFoodFavoriteStatus(food);
                 ScaffoldMessenger.of(context).clearSnackBars();
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar
-                  (content: Text(wasAdded
-                ? "Food added as a Favorites."
-                : "Food removed.")));
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(wasAdded
+                        ? "Food added as a Favorites."
+                        : "Food removed.")));
               },
-              icon: Icon(isFavorites ? Icons.favorite : Icons.favorite_border))
+              icon: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  transitionBuilder: (child, animation) {
+                    return RotationTransition(
+                      turns:
+                          Tween<double>(begin: 0.1, end: 1).animate(animation),
+                      child: child,
+                    );
+                  },
+                  child: Icon(
+                      key: ValueKey(isFavorites),
+                      isFavorites ? Icons.favorite : Icons.favorite_border)))
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Image.network(
-              food.imageUrl,
-              height: 300,
-              width: double.infinity,
-              fit: BoxFit.cover,
+            Hero(
+              tag: food.id,
+              child: Image.network(
+                food.imageUrl,
+                height: 300,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
             ),
             const SizedBox(
               height: 14,

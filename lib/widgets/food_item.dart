@@ -29,12 +29,18 @@ class FoodItem extends StatelessWidget {
           onTap: () {
             onSelectFood(food);
           },
-          child: FadeInImage(
-            placeholder: MemoryImage(kTransparentImage),
-            image: NetworkImage(food.imageUrl),
-            fit: BoxFit.cover,
-            height: 200,
-            width: double.infinity,
+          child: Hero(
+            tag: food.id,
+            createRectTween: (begin, end) {
+              return MaterialRectArcTween(begin: begin,end: end);
+            },
+            child: FadeInImage(
+              placeholder: MemoryImage(kTransparentImage),
+              image: NetworkImage(food.imageUrl),
+              fit: BoxFit.cover,
+              height: 200,
+              width: double.infinity,
+            ),
           ),
         ),
         Positioned(
